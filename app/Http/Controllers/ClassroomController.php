@@ -9,6 +9,13 @@ use Inertia\Response;
 
 class ClassroomController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('can:create-classrooms')->only(['store']);
+        $this->middleware('can:edit-classrooms')->only(['edit']);
+        $this->middleware('can:delete-classrooms')->only(['destroy']);
+    }
+
     public function index(): Response
     {
         $classrooms = Classroom::all();
